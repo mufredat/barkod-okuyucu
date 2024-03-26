@@ -1,4 +1,5 @@
-import {OFF} from 'openfoodfacts-nodejs'
+import OpenFoodFacts from 'openfoodfacts-nodejs'
+
 
 export async function GET(req:Request) {
     const { searchParams } = new URL(req.url)
@@ -6,7 +7,8 @@ export async function GET(req:Request) {
     if (!barkod) {
         return Response.json({ error: 'Missing barkod parameter' })
     }
-    const client = new OFF();
+    // @ts-ignore
+    const client = new OpenFoodFacts();
     const product = await client.getProduct(barkod)
 
     return Response.json({ product })
