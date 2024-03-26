@@ -1,4 +1,5 @@
 import OpenFoodFacts from "openfoodfacts-nodejs";
+import Image from "next/image";
 
 
 type ProductProps = {
@@ -10,7 +11,7 @@ export default function ProductCard({product}:ProductProps){
         <div>
             Product name: {product.product_name}
 
-            <img src={product.image_front_url} alt={product.product_name} />
+            <Image src={product.image_front_url} alt={product.product_name} />
         </div>
     );
 }
