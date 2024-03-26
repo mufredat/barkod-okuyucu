@@ -1,4 +1,4 @@
-import {APIResponse, OFF} from "openfoodfacts-nodejs";
+import openfoodfacts from "openfoodfacts-nodejs";
 import ProductCard from "@/components/ProductCard";
 
 
@@ -6,8 +6,9 @@ export default async function Product({ params }: { params: { barkod: string } }
     if (!params.barkod) {
         return null;
     }
-    const client =  new OFF();
-    const products: APIResponse.Products = await client.getProduct(params.barkod)
+    // @ts-ignore
+    const client =  new openfoodfacts();
+    const products = await client.getProduct(params.barkod)
 
 
     return <div>
