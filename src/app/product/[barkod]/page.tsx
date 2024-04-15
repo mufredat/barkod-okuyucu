@@ -1,14 +1,12 @@
-import openfoodfacts from "openfoodfacts-nodejs";
 import ProductCard from "@/components/ProductCard";
+import {getProduct} from "@/app/services/ofaService";
 
 
 export default async function Product({ params }: { params: { barkod: string } }) {
     if (!params.barkod) {
         return null;
     }
-    // @ts-ignore
-    const client =  new openfoodfacts();
-    const products = await client.getProduct(params.barkod)
+    const products = await getProduct(params.barkod)
 
 
     return <div>

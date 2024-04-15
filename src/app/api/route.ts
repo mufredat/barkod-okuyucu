@@ -1,5 +1,4 @@
-import openfoodfacts from 'openfoodfacts-nodejs'
-import { kv } from '@vercel/kv'
+import {getProduct} from "@/app/services/ofaService";
 
 export async function GET(req:Request) {
     const { searchParams } = new URL(req.url)
@@ -7,18 +6,7 @@ export async function GET(req:Request) {
     if (!barkod) {
         return Response.json({ error: 'Missing barkod parameter' })
     }
-    let product;
-
-    const vsRes = await kv.get(barkod)
-
-    if (vsRes) {
-        product = vsRes
-    }  else {
-        // @ts-ignore
-        const client =  new openfoodfacts();
-        product = await client.getProduct(barkod)
-        await kv.set(barkod, product)
-    }
+    const product = await getProduct(barkod)
 
     return Response.json({ product })
 }
